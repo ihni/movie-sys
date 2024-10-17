@@ -1,11 +1,13 @@
 # Movie Ticket Booking System
 
+- Open to functions being scraped to make system easier to code
+
 ## Final Project
 - Final Exam -> (Laboratory)
 - 10-minute explanation
 - Explain the data structure and algorithms used
 - **Documentation**: Create a user manual in README.md
-- document any changes and WHY in documentation.md for presentation showcase & summar
+- document any changes and WHY in documentation.md for presentation showcase & summary
 - **Version Control**: Set up a Git repository
 
 ## Project Breakdown
