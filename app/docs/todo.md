@@ -89,6 +89,8 @@ movie_ticket_booking_system/
 │   ├── models/                     # Classes => pure representation of data, no functions please
 │   │   ├── __init__.py             # Package initialization
 │   │   ├── user.py                 # User model
+│   │   ├── showtime.py             # Showtime Model
+│   │   ├── theatre.py              # Theatre Model
 │   │   ├── movie.py                # Movie model
 │   │   ├── ticket.py               # Ticket model
 │   │   └── reservation.py          # Reservation model
