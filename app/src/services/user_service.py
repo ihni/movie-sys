@@ -4,6 +4,14 @@ class UserService:
     def __init__(self):
         self.users = []
 
+    def authenticate_email(self, email):
+        '''check if valid email'''
+        pass
+
+    def is_duplicate_email(self, email):
+        '''check if email is already a duplicate in sys'''
+        pass
+
     def create_user(self, email) -> object:
         user = User(email)
         self.users.append(user)

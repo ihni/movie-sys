@@ -2,7 +2,7 @@ class Seat:
     def __init__(self, row, column):
         self.row = row
         self.column = column
-        self.is_avaible = True
+        self.is_available = True
         self.name = self.generate_name()
     
     def generate_name(self):

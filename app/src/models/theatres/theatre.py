@@ -22,10 +22,27 @@ class Theatre:
             seat_matrix.append(row_seats)
         return seat_matrix
 
+    def avaible_seats_list(self) -> list:
+        available_seats = []
+        for row in self.seats:
+            for seat in row:
+                if seat.is_available:
+                    available_seats.append(seat.name)
+        return available_seats
+
     def display_seats(self):
         for row in self.seats:
             for seat in row:
                 print(seat.name, end=" ")
+            print()
+
+    def display_seats_with_cli_color(self):
+        for row in self.seats:
+            for seat in row:
+                if seat.is_available:
+                    print('\x1b[6;30;42m' + seat.name + '\x1b[0m', end=" ")
+                else:
+                    print('\x1b[38;5;9m' + seat.name + '\x1b[0m', end=" ")
             print()
 
     def get_seat_position(self, seat_name):
@@ -44,8 +61,8 @@ class Theatre:
     
     def reserve_seat(self, row, column) -> bool:
         seat = self.seats[row][column]
-        if seat.is_avaible:
-            seat.is_avaible = False
+        if seat.is_available:
+            seat.is_available = False
             self.booked_seats += 1
             return True
         else:
@@ -57,9 +74,9 @@ class Theatre:
     
     def release_seat(self, row, column) -> bool:
         seat = self.seats[row][column]
-        if seat.is_avaible:
+        if seat.is_available:
             return False
-        seat.is_avaible = True
+        seat.is_available = True
         self.booked_seats -= 1
         return True
 
