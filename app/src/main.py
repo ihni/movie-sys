@@ -21,14 +21,14 @@ theatre = Theatre(
 user_service = UserService()
 reservation_service = ReservationService()
 
-user = user_service.create_user(
+user_1 = user_service.create_user(
     email = "test@gmail.com"
 )
 reservation = reservation_service.create_reservation(
     movie = movie,
     theatre = theatre,
     seat_name = "A1",
-    user = user
+    user = user_1
 )
 
 

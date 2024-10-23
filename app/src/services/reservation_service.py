@@ -13,6 +13,7 @@ class ReservationService:
                                   seat_name = seat_name,
                                   user = user)
         self.reservations.append(reservation)
+        user.reservations.append(reservation)
         return reservation
     
     def cancel_reservation(self, remove_reservation) -> bool:
