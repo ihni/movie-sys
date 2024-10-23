@@ -1,14 +1,17 @@
 from .seat import Seat
 
 class Theatre:
-    def __init__(self, movie, location, total_rows, total_columns):
-        self.movie = movie
+    def __init__(self, location, total_rows, total_columns):
         self.location = location
         self.total_rows = total_rows
         self.total_columns = total_columns
+        self.movies = []
         self.seats = self.generate_seats()
         self.booked_seats = 0
     
+    def add_movie(self, movie):
+        self.movies.append(movie)
+
     def available_seats(self) -> int:
         return (self.total_rows * self.total_columns) - self.booked_seats
     

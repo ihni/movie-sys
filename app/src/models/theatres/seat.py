@@ -17,4 +17,4 @@ class Seat:
         return f"{row_letter}{column_number}"
     
     def __str__(self):
-        return f"{self.is_avaible} ({self.name})"
+        return f"{self.is_available} ({self.name})"
