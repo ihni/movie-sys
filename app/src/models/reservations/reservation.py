@@ -5,3 +5,8 @@ class Reservation:
         self.seat_name = seat_name
         self.user = user
         self.theatre = theatre
+
+    def __str__(self):
+        return (
+            f"'{self.user.email}' reservation for '{self.movie}' on '{self.showtime.showtime}' in theatre '{self.theatre.location}' at seat '{self.seat_name}'"
+        )

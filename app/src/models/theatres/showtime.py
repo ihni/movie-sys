@@ -56,7 +56,12 @@ class Showtime:
         return sum(seat.is_available for row in self.seats for seat in row)
 
     def available_seats_list(self) -> list:
-        return [seat.name for row in self.seats for seat in row if seat.is_available]
+        available_seats = []
+        for row in self.seats:
+            for seat in row:
+                if seat.is_available:
+                    available_seats.append(seat.name)
+        return available_seats
 
     def to_24h_format(self):
         return self.showtime.strftime("%H:%M")

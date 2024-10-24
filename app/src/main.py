@@ -1,6 +1,6 @@
 from config import *
-from models import Theatre
 from services import UserService
+from services import TheatreService
 from services import ReservationService
 from services import MovieService
 from services import ShowtimeService
@@ -10,15 +10,21 @@ user_service = UserService()
 reservation_service = ReservationService()
 movie_service = MovieService()
 showtime_service = ShowtimeService()
+theatre_service = TheatreService()
 
 '''
 Creating Preset Data
 '''
 
-theatre1 = Theatre(
+theatre1 = theatre_service.create_theatre(
     location = ALL_THEATRE_LOCATIONS[0],
     total_rows = MAX_ROWS,
     total_columns = MAX_COLUMNS-2
+)
+theatre2 = theatre_service.create_theatre(
+    location = ALL_THEATRE_LOCATIONS[1],
+    total_rows = MAX_ROWS,
+    total_columns = MAX_COLUMNS
 )
 
 coraline = movie_service.create_movie(title="Coraline", length=115)
@@ -37,6 +43,14 @@ coraline_showtime1 = showtime_service.create_showtime(
 coraline_showtime2 = showtime_service.create_showtime(
     movie = coraline,
     theatre = theatre1,
+    year = 2024,
+    month_number = 10,
+    day = 25,
+    time = "1:00 PM"
+)
+coraline_showtime_theatre2 = showtime_service.create_showtime(
+    movie = coraline,
+    theatre = theatre2,
     year = 2024,
     month_number = 10,
     day = 25,
@@ -67,10 +81,10 @@ showtime4 = showtime_service.create_showtime(
     time = "11:30 PM"
 )
 
-theatre1.add_movie(coraline)
-theatre1.add_movie(spirited_away)
-theatre1.add_movie(chipmunks)
-theatre1.add_movie(pirates_carribean)
+theatre_service.add_movie_to_theatre(theatre1, coraline)
+theatre_service.add_movie_to_theatre(theatre1, spirited_away)
+theatre_service.add_movie_to_theatre(theatre1, chipmunks)
+theatre_service.add_movie_to_theatre(theatre1, pirates_carribean)
 
 '''Adding Users and Reserving Seats in different Showtimes'''
 
@@ -84,7 +98,11 @@ reservation_service.create_reservation(coraline, coraline_showtime2, "D6", user2
 DisplayService.display_seats_with_cli_color(coraline_showtime1)
 print()
 DisplayService.display_seats_with_cli_color(coraline_showtime2)
+print()
+
 alphabetical_movie_list = movie_service.sort_by_alphabetical_order()
-print(f"\nAll movies in this theatre:\n")
-for movie in alphabetical_movie_list:
-    print(movie)
+DisplayService.display_movies_in_alphabetical_order(alphabetical_movie_list)
+print()
+
+DisplayService.display_user_reservations(user_service.user_reservations(user1))
+DisplayService.display_user_reservations(user_service.user_reservations(user2))

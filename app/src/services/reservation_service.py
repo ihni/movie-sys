@@ -1,25 +1,30 @@
 from models import Reservation
+from datetime import datetime
 
 class ReservationService:
     def __init__(self):
         self.reservations = []
 
     def add_reservation(self, reservation) -> None:
-        '''Adds a reservation to the list.'''
         self.reservations.append(reservation)
 
     def is_movie_in_showtime(self, movie, showtime) -> bool:
         return movie == showtime.movie
 
     def is_seat_available(self, showtime, seat_name) -> bool:
-        '''checks if the seat is reserved in the theatre
-            if not, create a reservation and return True'''
         return showtime.check_seat_availability(seat_name)
+
+    def is_showing_now_or_later(self, showtime) -> bool:
+        current_time = datetime.now()
+        return showtime.showtime > current_time
 
     def create_reservation(self, movie, showtime, seat_name, user) -> object:
         if not self.is_movie_in_showtime(movie, showtime):
             raise ValueError("Movie is not being shown in this showtime.")
         
+        if not self.is_showing_now_or_later(showtime):
+            raise Exception("Cannot reserve; the movie is no longer showing.")
+
         if not self.is_seat_available(showtime, seat_name):
             raise Exception("Seat is not available")
         

@@ -53,11 +53,11 @@
         - seatings should not interfere anymore with the next showtime
 - seperated out display functions into utilities folder; modularity
 - many attributes from movie is now decoupled, movie now only holds title, length, and its showtimes
+- added theatre service
+- implemented a movie queue to prevent users from reserving tickets for movies that are already finished
+    - queues work best in this case because it's most similar to a playlist where one movie plays after the other and the ones that are finished are dequeued
+- moved more cli displays into utilities folder
 - **WIP**
     - binary search for movie titles
     - sort by showtime
-    - theatre service
-        - adding movies to a theatre
-        - creating theatres
-        - changing movies in a theatre
-        - deleting theatres
+- Aidan

@@ -11,6 +11,16 @@ class MovieService:
     def remove_movie(self, movie):
         self.movies.remove(movie)
 
+    def search_movie_by_partial_title(self, partial_title) -> list:
+        '''
+        returns a list of all movies where partial title is inside movie title
+        '''
+        matching_movies = []
+        for movie in self.movies:
+            if partial_title.lower() in movie.title.lower():
+                matching_movies.append(movie)
+        return matching_movies
+
     def sort_by_alphabetical_order(self) -> list:
         '''
         returns a list of sorted movie objects based on the title

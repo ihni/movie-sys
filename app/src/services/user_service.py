@@ -9,10 +9,12 @@ class UserService:
         pass
 
     def is_duplicate_email(self, email):
-        '''check if email is already a duplicate in sys'''
-        pass
+        emails = [user.email for user in self.users]
+        return email in emails
 
     def create_user(self, email) -> object:
+        if self.is_duplicate_email(email):
+            return False
         user = User(email)
         self.users.append(user)
         return user
@@ -23,6 +25,11 @@ class UserService:
                 return user
         return None
     
+    def user_reservations(self, user):
+        if user not in self.users:
+            return False
+        return user.reservations
+
     def list_users(self) -> list:
         return self.users
     
