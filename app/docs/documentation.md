@@ -41,3 +41,23 @@
     - reason is because if movie was to replay, the seating reservation won't be removed for the future showtime
     - seating in the theatres should be attached to that specific showtime - endtime, at the moment, it does not care about what showtime you're attached to as if you decide to book in the same theatre at the same seat for the same movie but in a later show time, the seat will still be unavaible even though it's a brand new movie.
     - reserving should only be attached for that showtime, future showtimes should not have their seats taken for other showtimes
+- Aidan
+
+## 10/25/2024
+- **fixed previous issues**
+    - decoupled seatings so that showtimes represent seperate screenings.
+    - this is done through creating a seperate showtime service
+        - showtimes now handle seat reservations
+        - showtimes take a copy of a theatre's seating arrangement
+        - seatings are now seperate for each showtime and for each theatre
+        - seatings should not interfere anymore with the next showtime
+- seperated out display functions into utilities folder; modularity
+- many attributes from movie is now decoupled, movie now only holds title, length, and its showtimes
+- **WIP**
+    - binary search for movie titles
+    - sort by showtime
+    - theatre service
+        - adding movies to a theatre
+        - creating theatres
+        - changing movies in a theatre
+        - deleting theatres

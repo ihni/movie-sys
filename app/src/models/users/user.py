@@ -3,5 +3,5 @@ class User:
         self.email = email
         self.reservations = []
     
-    def add_reservation(self, reservation):
+    def add_user_reservation(self, reservation):
         self.reservations.append(reservation)

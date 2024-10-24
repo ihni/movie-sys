@@ -4,35 +4,44 @@ class ReservationService:
     def __init__(self):
         self.reservations = []
 
-    def is_movie_in_theatre(self, movie, theatre) -> bool:
-        '''checks if movie obj in a theatre's list'''
-        return movie in theatre.movies
+    def add_reservation(self, reservation) -> None:
+        '''Adds a reservation to the list.'''
+        self.reservations.append(reservation)
 
-    def is_seat_reserved(self, theatre, seat_name) -> bool:
+    def is_movie_in_showtime(self, movie, showtime) -> bool:
+        return movie == showtime.movie
+
+    def is_seat_available(self, showtime, seat_name) -> bool:
         '''checks if the seat is reserved in the theatre
             if not, create a reservation and return True'''
-        return theatre.reserve_seat_by_name(seat_name)
+        return showtime.check_seat_availability(seat_name)
 
-    def create_reservation(self, movie, theatre, seat_name, user) -> object:
-        if not self.is_movie_in_theatre(movie, theatre):
-            raise ValueError("Movie is not being shown in this theatre.")
-        if not self.is_seat_reserved(theatre, seat_name):
+    def create_reservation(self, movie, showtime, seat_name, user) -> object:
+        if not self.is_movie_in_showtime(movie, showtime):
+            raise ValueError("Movie is not being shown in this showtime.")
+        
+        if not self.is_seat_available(showtime, seat_name):
             raise Exception("Seat is not available")
         
-        reservation = Reservation(movie = movie,
-                                  theatre = theatre,
-                                  seat_name = seat_name,
-                                  user = user)
-        self.reservations.append(reservation)
-        user.add_reservation(reservation)
+        showtime.reserve_seat_by_name(seat_name)
+
+        reservation = Reservation(
+            movie = movie,
+            showtime = showtime,               
+            theatre = showtime.theatre,
+            seat_name = seat_name,
+            user = user
+        )
+        self.add_reservation(reservation)
+        user.add_user_reservation(reservation)
         return reservation
     
     def cancel_reservation(self, remove_reservation) -> bool:
         for reservation in self.reservations:
             if reservation == remove_reservation:
-                theatre = remove_reservation.theatre
-                theatre.release_seat_by_name(remove_reservation.seat_name)
-                self.reservation.remove(remove_reservation)
+                showtime = remove_reservation.theatre
+                showtime.release_seat_by_name(remove_reservation.seat_name)
+                self.reservations.remove(remove_reservation)
                 return True
         return False
     

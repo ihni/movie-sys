@@ -1,6 +1,5 @@
 from models import Movie
 from lib import MergeSort
-from .showtime_service import ShowtimeService
 
 class MovieService:
     def __init__(self):
@@ -41,21 +40,11 @@ class MovieService:
                 return True
         return False
     
-    def create_movie(self, title, year, month_number, day, time, length) -> object:
+    def create_movie(self, title, length) -> object:
         if self.is_in_catalogue_by_title(title):
             return False
         
-        showtime_service = ShowtimeService()
-        showtime = showtime_service.create_showtime(
-            year = year,
-            month_number = month_number,
-            day = day,
-            time = time
-        )
-        movie = Movie(title = title,
-                      showtime = showtime,
-                      length = length
-        )
+        movie = Movie(title=title, length=length)
         self.add_movie(movie)
         return movie
     

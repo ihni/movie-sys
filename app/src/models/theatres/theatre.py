@@ -7,7 +7,6 @@ class Theatre:
         self.total_columns = total_columns
         self.movies = []
         self.seats = self.generate_seats()
-        self.booked_seats = 0
     
     def add_movie(self, movie):
         self.movies.append(movie)
@@ -25,7 +24,7 @@ class Theatre:
             seat_matrix.append(row_seats)
         return seat_matrix
 
-    def avaible_seats_list(self) -> list:
+    def available_seats_list(self) -> list:
         available_seats = []
         for row in self.seats:
             for seat in row:
@@ -57,31 +56,6 @@ class Theatre:
         for index, char in enumerate(reversed(row_part)):
             row += (ord(char) - ord('A')) * (26 ** index)
         return row, column
-
-    def reserve_seat_by_name(self, seat_name):
-        row, column = self.get_seat_position(seat_name)
-        return self.reserve_seat(row, column)
-    
-    def reserve_seat(self, row, column) -> bool:
-        seat = self.seats[row][column]
-        if seat.is_available:
-            seat.is_available = False
-            self.booked_seats += 1
-            return True
-        else:
-            return False
-        
-    def release_seat_by_name(self, seat_name):
-        row, column = self.get_seat_position(seat_name)
-        return self.release_seat(row, column)
-    
-    def release_seat(self, row, column) -> bool:
-        seat = self.seats[row][column]
-        if seat.is_available:
-            return False
-        seat.is_available = True
-        self.booked_seats -= 1
-        return True
 
     def __str__(self):
         return f"{self.movie} playing at theatre {self.location} with {self.available_seats()} seats left."
